@@ -1,0 +1,105 @@
+Script started on 2025-04-14 22:19:59+00:00 [TERM="xterm-256color" TTY="/dev/pts/3" COLUMNS="151" LINES="16"]
+[0;32m@MohammadSameerKhan [0m➜ [1;34m/workspaces/homework-3-mongo-MohammadSameerKhan/book-reviews-app [0;36m([1;31mmain[0;36m) [0m$ mongo
+MongoDB shell version v3.6.8
+connecting to: mongodb://127.0.0.1:27017
+Implicit session: session { "id" : UUID("0992a43b-47cb-44a3-aced-1ae6deded7f8") }
+MongoDB server version: 3.6.8
+Welcome to the MongoDB shell.
+For interactive help, type "help".
+For more comprehensive documentation, see
+	http://docs.mongodb.org/
+Questions? Try the support group
+	http://groups.google.com/group/mongodb-user
+Server has startup warnings: 
+2025-04-14T21:56:50.151+0000 I CONTROL  [initandlisten] 
+2025-04-14T21:56:50.151+0000 I CONTROL  [initandlisten] ** WARNING: Access control is not enabled for the database.
+2025-04-14T21:56:50.151+0000 I CONTROL  [initandlisten] **          Read and write access to data and configuration is unrestricted.
+2025-04-14T21:56:50.151+0000 I CONTROL  [initandlisten] 
+2025-04-14T21:56:50.151+0000 I CONTROL  [initandlisten] 
+2025-04-14T21:56:50.151+0000 I CONTROL  [initandlisten] ** WARNING: /sys/kernel/mm/transparent_hugepage/enabled is 'always'.
+2025-04-14T21:56:50.151+0000 I CONTROL  [initandlisten] **        We suggest setting it to 'never'
+2025-04-14T21:56:50.151+0000 I CONTROL  [initandlisten] 
+> use acmeLoans[3G[Juse acmeLoans[16G
+switched to db acmeLoans
+> db.applications.insertOne({[3G[Jdb.applications.insertOne({[30G
+...   app_id: "A1001",[5G[J  app_id: "A1001",[23G
+...   name: "John Doe",[5G[J  name: "John Doe",[24G
+...   zipcode: "56301",[5G[J  zipcode: "56301",[24G
+...   status: "received",[5G[J  status: "received",[26G
+...   notes: [],[5G[J  notes: [],[17G
+...   rejection_reason: null[5G[J  rejection_reason: null[29G
+... })[5G[J})[7G
+{
+	"acknowledged" : true,
+	"insertedId" : ObjectId("67fd8a2db1a7f2c46002f6bf")
+}
+> db.applications.updateOne([3G[Jdb.applications.updateOne([29G
+...   { app_id: "A1001" },[5G[J  { app_id: "A1001" },[27G
+...   { $set: { status: "processing" } }[5G[J  { $set: { status: "processing" } }[41G
+... )[5G[J)[6G
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.applications.updateOne([3G[Jdb.applications.updateOne([29G
+...   { app_id: "A1001" },[5G[J  { app_id: "A1001" },[27G
+...   { $push: { notes: {[5G[J  { $push: { notes: {[26G
+...       phase: "credit checking",[5G[J      phase: "credit checking",[36G
+...       message: "Credit score is 710",[5G[J      message: "Credit score is 710",[42G
+...       timestamp: new Date()[5G[J      timestamp: new Date()[32G
+...   }}}[5G[J  }}}[10G
+... )[5G[J)[6G
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.applications.updateOne([3G[Jdb.applications.updateOne([29G
+...   { app_id: "A1001" },[5G[J  { app_id: "A1001" },[27G
+...   { $push: { notes: {[5G[J  { $push: { notes: {[26G
+...       phase: "certification checking",[5G[J      phase: "certification checking",[43G
+...       message: "Pending 3rd party documents",[5G[J      message: "Pending 3rd party documents",[50G
+...       timestamp: new Date()[5G[J      timestamp: new Date()[32G
+...   }}}[5G[J  }}}[10G
+... )[5G[J)[6G
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.applications.updateOne([3G[Jdb.applications.updateOne([29G
+...   { app_id: "A1001" },[5G[J  { app_id: "A1001" },[27G
+...   { $set: { status: "accepted" } }[5G[J  { $set: { status: "accepted" } }[39G
+... )[5G[J)[6G
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> [3G[J[3G
+> db.applications.updateOne([3G[Jdb.applications.updateOne([29G
+...   { app_id: "A1001" },[5G[J  { app_id: "A1001" },[27G
+...   { $push: { notes: {[5G[J  { $push: { notes: {[26G
+...       phase: "loan terms",[5G[J      phase: "loan terms",[31G
+...       message: "Approved for $10,000 @ 3.5% interest",[5G[J      message: "Approved for $10,000 @ 3.5% interest",[59G
+...       timestamp: new Date()[5G[J      timestamp: new Date()[32G
+...   }}}[5G[J  }}}[10G
+... )[5G[J)[6G
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.applications.findOne({ app_id: "A1001" })[3G[Jdb.applications.findOne({ app_id: "A1001" })[47G
+{
+	"_id" : ObjectId("67fd8a2db1a7f2c46002f6bf"),
+	"app_id" : "A1001",
+	"name" : "John Doe",
+	"zipcode" : "56301",
+	"status" : "accepted",
+	"notes" : [
+		{
+			"phase" : "credit checking",
+			"message" : "Credit score is 710",
+			"timestamp" : ISODate("2025-04-14T22:20:56.493Z")
+		},
+		{
+			"phase" : "certification checking",
+			"message" : "Pending 3rd party documents",
+			"timestamp" : ISODate("2025-04-14T22:21:04.238Z")
+		},
+		{
+			"phase" : "loan terms",
+			"message" : "Approved for $10,000 @ 3.5% interest",
+			"timestamp" : ISODate("2025-04-14T22:21:10.908Z")
+		}
+	],
+	"rejection_reason" : null
+}
+> exit[3G[Jexit[7G
+bye
+[0;32m@MohammadSameerKhan [0m➜ [1;34m/workspaces/homework-3-mongo-MohammadSameerKhan/book-reviews-app [0;36m([1;31mmain[0;36m) [0m$ exit
+exit
+
+Script done on 2025-04-14 22:21:42+00:00 [COMMAND_EXIT_CODE="0"]
